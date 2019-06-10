@@ -128,7 +128,7 @@ namespace DistributedExperimentation.DataModel.Parsing.Implementation
                     this.jwriter.writeValue(parameter.getDescription());
                 }
                 this.jwriter.writePropertyName("is_primitive");
-                this.jwriter.writeValue(parameter.getValue().isPrimitive());         
+                this.jwriter.writeValue(parameter.isPrimitive());      
                 this.jwriter.writePropertyName("value_type");
                 this.jwriter.writeValue(parameter.getValue().getValueTypeName());                       
                 this.jwriter.writePropertyName("value");

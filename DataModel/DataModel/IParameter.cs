@@ -8,5 +8,6 @@ namespace DistributedExperimentation.DataModel
         String getName();
         String getDescription();
         IParameterValue getValue();
+        bool isPrimitive();
     }
 }

@@ -38,18 +38,52 @@ namespace DistributedExperimentation.Investigator.Application
         {
             bool isOk = ((eSeries != null) && (dockerImage != null) && (executionPath != null));
             if (isOk) {
-                IList<Task<KeyValuePair<String, String>>> tasks = new List<Task<KeyValuePair<String, String>>>();
+                IList<KeyValuePair<String,Task<KeyValuePair<String, String>>>> tasks = new List<KeyValuePair<String,Task<KeyValuePair<String, String>>>>();
+                IList<IExperiment> experiments = eSeries.getExperiments().ToList();
                 Console.WriteLine("Investigator: Start distributing experiment tasks of " +
                                   "series of experiment with id " + eSeries.getId());
-                foreach(IExperiment experiment in eSeries.getExperiments())
-                {
-                    tasks.Add(this.distributeExperimentAsync(eSeries.getId(), 
-                                                           eSeries.getName(), 
-                                                           eSeries.getDescription(),
-                                                           eSeries.getExperimentSoftware(), 
-                                                           experiment, dockerImage, executionPath));
-                }  
-                await startRemovePolling(tasks.Select(x => x.Result).ToList());
+                //while(experiments.Count > 0)
+                //{
+                    foreach(IExperiment experiment in experiments)
+                    {
+                        tasks.Add(new KeyValuePair<string, Task<KeyValuePair<string, string>>>(
+                                                eSeries.getId() + ":::" + experiment.getId(),
+                                                this.distributeExperimentAsync(eSeries.getId(), 
+                                                eSeries.getName(), 
+                                                eSeries.getDescription(),
+                                                eSeries.getExperimentSoftware(), 
+                                                experiment, dockerImage, executionPath)));
+                    }
+                    //Task.Delay(3000).Wait();
+                    tasks.Where(x => x.Value.IsFaulted).ToList().ForEach(x => 
+                    {
+                        String error = "Investigator: Task\n\t        " + x.Key + 
+                                       "\n\t      is faulted because:\n" +
+                                       x.Value.Exception.Message;
+                        Console.WriteLine(error);
+                    });
+                    // IList<String> faultedTasks = tasks.Where(x => x.Value.IsFaulted)
+                    //                                   .Select(x => x.Key).ToList();                                                   
+                    // experiments = experiments.Where(x => 
+                    // {
+                    //     bool isSelected = false;
+                    //     String identifier = eSeries.getId() + ":::" + x.getId();
+                    //     foreach(String brokenIdentifier in faultedTasks) {
+                    //         if (String.Compare(identifier, brokenIdentifier) == 0)
+                    //             isSelected = true;
+                    //     }
+                    //     return isSelected;
+                    // }).ToList();
+                //}
+                // foreach(IExperiment experiment in eSeries.getExperiments())
+                // {
+                //     tasks.Add(this.distributeExperimentAsync(eSeries.getId(), 
+                //                                            eSeries.getName(), 
+                //                                            eSeries.getDescription(),
+                //                                            eSeries.getExperimentSoftware(), 
+                //                                            experiment, dockerImage, executionPath));
+                // }  
+                await startRemovePolling(tasks.Select(x => x.Value.Result).ToList());
                 Console.WriteLine("Investigator: Experiment tasks of the series of experiment " +
                                   "with id " + eSeries.getId() + " were finished");              
             } else {

@@ -14,7 +14,7 @@ namespace DistributedExperimentation.Investigator.UI
         static void Main(string[] args)
         {
             try {
-                // File.WriteAllText("exp1.json", createTestCase2());
+                // File.WriteAllText("exp1.json", createTestCase());
                 // "-f", "exp1.json", 
                 // "-d", "192.168.178.211:5000/experimenter-simple-adder-db-app-alpine3.7-noentry:1.0",
                 // "-h", "unix:///var/run/docker.sock",
@@ -280,71 +280,7 @@ namespace DistributedExperimentation.Investigator.UI
             return sb.ToString();
         }        
 
-        private static String createTestCase1()
-        {
-            return @"            
-                {
-                ""series_id"": ""55"",
-                ""name"": ""Auffällige Benutzer"",
-                ""description"": ""Untersuchung aller auffälligen Benutzer."",
-                ""experiment_software"": ""Useranalyser.exe"",
-                ""experiments"": [
-                    {
-                    ""experiment_id"": ""34"",
-                    ""name"": ""Benutzerexperiment"",
-                    ""description"": ""Untersuchung des Benutzers."",
-                    ""parametercollection"": {
-                        ""collection_id"": ""111"",
-                        ""name"": ""Benutzer"",
-                        ""description"": ""Datensatz des Benutzers"",
-                        ""parameters"": [
-                        {
-                            ""parameter_id"": ""1"",
-                            ""name"": ""-username"",
-                            ""description"": ""Der Name des aktuellen Benutzer."",
-                            ""is_primitive"": true,
-                            ""value_type"": ""characterstring"",
-                            ""value"": ""paul""
-                        },
-                        {
-                            ""parameter_id"": ""2"",
-                            ""name"": ""--woman"",
-                            ""description"": ""Die Ehefrau des aktuellen Benutzers."",
-                            ""is_primitive"": false,
-                            ""value_type"": ""parametercollection"",
-                            ""value"": {
-                            ""collection_id"": ""333"",
-                            ""name"": ""Ehefrau"",
-                            ""description"": ""Datensatz der Ehefrau."",
-                            ""parameters"": [
-                                {
-                                ""parameter_id"": ""21"",
-                                ""name"": ""-username"",
-                                ""description"": ""Der Name der Ehefrau des aktuellen Benutzers."",
-                                ""is_primitive"": true,
-                                ""value_type"": ""characterstring"",
-                                ""value"": ""anne""
-                                },
-                                {
-                                ""parameter_id"": ""22"",
-                                ""name"": ""-age"",
-                                ""description"": ""Das Alter der Ehefrau des aktuellen Benutzers."",
-                                ""is_primitive"": true,
-                                ""value_type"": ""integer"",
-                                ""value"": 36
-                                }
-                            ]
-                            }
-                        }
-                        ]
-                    }
-                    }
-                ]
-                }
-            ";
-        }
-
-        private static String createTestCase2()
+        private static String createTestCase()
         {
             return @"            
                 {

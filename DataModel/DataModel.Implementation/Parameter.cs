@@ -79,11 +79,16 @@ namespace DistributedExperimentation.DataModel.Implementation
             return this.description;
         }
 
+        public bool isPrimitive()
+        {
+            return this.value.isPrimitive();
+        }
+
         private bool isValidId(String id) 
         {
             return ((id != null) && 
                     (id.Length > 0) && (id.Length < 61) &&
                     (System.Text.RegularExpressions.Regex.IsMatch(id, "^([A-Za-z0-9])+$")));
-        }        
+        }
     }
 }
