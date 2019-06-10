@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataModel\DataModel\DataModel.csproj" />
+    <ProjectReference Include="..\..\DataModel\DataModel.Parsing\DataModel.Parsing.csproj" />
+    <ProjectReference Include="..\..\DataModel\DataModel.Parsing.Implementation\DataModel.Parsing.Implementation.csproj" />  
+    <ProjectReference Include="..\Experimenter.ExecutorPlugin\Experimenter.ExecutorPlugin.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+  </PropertyGroup>
+
+</Project>

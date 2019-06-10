@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Investigator.Application\Investigator.Application.csproj" />
+    <ProjectReference Include="..\..\DataModel\DataModel\DataModel.csproj" />
+    <ProjectReference Include="..\..\DataModel\DataModel.Implementation\DataModel.Implementation.csproj" />
+    <ProjectReference Include="..\..\DataModel\DataModel.Parsing\DataModel.Parsing.csproj" />
+    <ProjectReference Include="..\..\DataModel\DataModel.Parsing.Implementation\DataModel.Parsing.Implementation.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64;linux-musl-x64;</RuntimeIdentifiers>
+		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+  </PropertyGroup>
+
+</Project>
