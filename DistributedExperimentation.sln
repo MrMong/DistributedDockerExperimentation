@@ -1,31 +1,40 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataModel", "DataModel", "{83197DCA-4624-4ACF-98A2-6243072FF9ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel\DataModel.csproj", "{A13C59C3-6532-4C2E-AF98-65A463D667CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel", "DataModel\DataModel\DataModel.csproj", "{A13C59C3-6532-4C2E-AF98-65A463D667CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel.Implementation", "DataModel\DataModel.Implementation\DataModel.Implementation.csproj", "{1219D6A9-D2A9-4DCB-98C0-11B50ACE36D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel.Implementation", "DataModel\DataModel.Implementation\DataModel.Implementation.csproj", "{1219D6A9-D2A9-4DCB-98C0-11B50ACE36D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel.Parsing", "DataModel\DataModel.Parsing\DataModel.Parsing.csproj", "{15F14E1F-859C-4B93-AF89-BDC2F4EC1633}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel.Parsing", "DataModel\DataModel.Parsing\DataModel.Parsing.csproj", "{15F14E1F-859C-4B93-AF89-BDC2F4EC1633}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel.Parsing.Implementation", "DataModel\DataModel.Parsing.Implementation\DataModel.Parsing.Implementation.csproj", "{CA8FDB21-E27D-4AB4-8457-C51ECB60D2B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel.Parsing.Implementation", "DataModel\DataModel.Parsing.Implementation\DataModel.Parsing.Implementation.csproj", "{CA8FDB21-E27D-4AB4-8457-C51ECB60D2B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Experimenter", "Experimenter", "{71F7481F-2145-41C5-B9AC-1871D827FBED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimenter.Application", "Experimenter\Experimenter.Application\Experimenter.Application.csproj", "{37E8A88C-6ED3-483B-A0FF-6BD45065066A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimenter.Application", "Experimenter\Experimenter.Application\Experimenter.Application.csproj", "{37E8A88C-6ED3-483B-A0FF-6BD45065066A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimenter.UI", "Experimenter\Experimenter.UI\Experimenter.UI.csproj", "{4E66C7EA-A42D-44AC-93C6-489AFE6E3185}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimenter.UI", "Experimenter\Experimenter.UI\Experimenter.UI.csproj", "{4E66C7EA-A42D-44AC-93C6-489AFE6E3185}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Investigator", "Investigator", "{24AA0757-AE66-421B-94B9-67923EF5D366}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Investigator.Application", "Investigator\Investigator.Application\Investigator.Application.csproj", "{7CF41FE3-1765-4FDB-8B85-8A3653D47131}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Investigator.Application", "Investigator\Investigator.Application\Investigator.Application.csproj", "{7CF41FE3-1765-4FDB-8B85-8A3653D47131}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Investigator.UI", "Investigator\Investigator.UI\Investigator.UI.csproj", "{AC695D67-27CC-4D74-A3C4-71209AFD1A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Investigator.UI", "Investigator\Investigator.UI\Investigator.UI.csproj", "{AC695D67-27CC-4D74-A3C4-71209AFD1A3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimenter.ExecutorPlugin", "Experimenter\Experimenter.ExecutorPlugin\Experimenter.ExecutorPlugin.csproj", "{F9A49925-3128-4E75-863F-C24A4E89C55F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimenter.ExecutorPlugin", "Experimenter\Experimenter.ExecutorPlugin\Experimenter.ExecutorPlugin.csproj", "{F9A49925-3128-4E75-863F-C24A4E89C55F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Experimentation", "Experimentation", "{22EA826A-1860-4602-9A64-826A91399EDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecutorPluginNG-ERP-4.0", "ExecutorPluginNG-ERP-4.0\ExecutorPluginNG-ERP-4.0.csproj", "{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestExecutorPlugin", "XUnitTestExecutorPlugin\XUnitTestExecutorPlugin.csproj", "{9EFF9359-0787-48C9-AE0D-F1D2544149D0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC} = {695FE162-3BE0-4E9D-A8B3-38ED908F07AC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,9 +44,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A13C59C3-6532-4C2E-AF98-65A463D667CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -148,6 +154,33 @@ Global
 		{F9A49925-3128-4E75-863F-C24A4E89C55F}.Release|x64.Build.0 = Release|Any CPU
 		{F9A49925-3128-4E75-863F-C24A4E89C55F}.Release|x86.ActiveCfg = Release|Any CPU
 		{F9A49925-3128-4E75-863F-C24A4E89C55F}.Release|x86.Build.0 = Release|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Debug|x64.Build.0 = Debug|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Debug|x86.Build.0 = Debug|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Release|x64.ActiveCfg = Release|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Release|x64.Build.0 = Release|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Release|x86.ActiveCfg = Release|Any CPU
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC}.Release|x86.Build.0 = Release|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Debug|x64.Build.0 = Debug|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Debug|x86.Build.0 = Debug|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Release|x64.ActiveCfg = Release|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Release|x64.Build.0 = Release|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Release|x86.ActiveCfg = Release|Any CPU
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A13C59C3-6532-4C2E-AF98-65A463D667CA} = {83197DCA-4624-4ACF-98A2-6243072FF9ED}
@@ -159,5 +192,10 @@ Global
 		{7CF41FE3-1765-4FDB-8B85-8A3653D47131} = {24AA0757-AE66-421B-94B9-67923EF5D366}
 		{AC695D67-27CC-4D74-A3C4-71209AFD1A3F} = {24AA0757-AE66-421B-94B9-67923EF5D366}
 		{F9A49925-3128-4E75-863F-C24A4E89C55F} = {71F7481F-2145-41C5-B9AC-1871D827FBED}
+		{695FE162-3BE0-4E9D-A8B3-38ED908F07AC} = {22EA826A-1860-4602-9A64-826A91399EDA}
+		{9EFF9359-0787-48C9-AE0D-F1D2544149D0} = {22EA826A-1860-4602-9A64-826A91399EDA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E3691D6-EAEB-4F3E-86CF-8D3BBB857595}
 	EndGlobalSection
 EndGlobal

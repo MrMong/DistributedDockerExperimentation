@@ -6,13 +6,15 @@ using DistributedExperimentation.Experimenter.Application;
 
 namespace DistributedExperimentation.Experimenter.UI
 {
-    class ApplicationMain
+    public class ApplicationMain
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             try {
                 Dictionary<string, string> parsedArgs = parseArguments(args);
-                String pluginPath = getPluginFilePath("ExecutorPlugin", Directory.GetCurrentDirectory());
+                if (!parsedArgs.ContainsKey("--pluginPath"))
+                    parsedArgs.Add("--pluginPath", Directory.GetCurrentDirectory());
+                string pluginPath = getPluginFilePath("ExecutorPlugin", parsedArgs["--pluginPath"]);
                 ExecutorPluginProxy proxy = ExecutorPluginProxy.create(pluginPath);
                 Application.Experimenter experimenter = Application.Experimenter.create();
                 experimenter.executeExperimentation(parsedArgs["--experiment-data"], proxy);
@@ -24,9 +26,10 @@ namespace DistributedExperimentation.Experimenter.UI
         static Dictionary<string, string> parseArguments(string[] args)
         {
             try {
-                if (args.Length != 1)
+                if (args.Length <= 1 && args.Length > 2)
                     throw new Exception();
                 Dictionary<string, string> parsedArgs = new Dictionary<string, string>();
+                // TODO Argument Parsin Looks wrong to me 
                 foreach(String arg in args) {
                     String key = arg.Substring(0, arg.IndexOf(' ')).Trim();
                     String val = arg.Substring(arg.IndexOf(' ')).Trim();
@@ -46,6 +49,12 @@ namespace DistributedExperimentation.Experimenter.UI
             }
         }
 
+        /// <summary>
+        /// The Method Currently Asumes there is only 1 Execution DLL, that might caus Problems in the future.
+        /// </summary>
+        /// <param name="pluginFilePrefix"></param>
+        /// <param name="pluginDirPath"></param>
+        /// <returns> sting path for dll</returns>
         static String getPluginFilePath(String pluginFilePrefix, String pluginDirPath) {
             bool isOk = ((!String.IsNullOrEmpty(pluginFilePrefix)) &&
                         (!String.IsNullOrEmpty(pluginDirPath)));
@@ -54,10 +63,9 @@ namespace DistributedExperimentation.Experimenter.UI
                                             "pluginFilePrefix must be a valid non empty string\n"+
                                             "pluginDirPath must be a valid non empty string");
             string[] pluginFiles = Directory.GetFiles(pluginDirPath, pluginFilePrefix + "*.dll");
-            if (pluginFiles.Length < 1)
-                throw new FileNotFoundException("Could not found a plugin file with the given filename " +
-                                                "prefix '" + pluginFilePrefix + "' in the given directory " + 
-                                                pluginDirPath);
+            if (pluginFiles.Count() != 1)
+                throw new ArgumentException("Found too many or no input Execution DLL!");
+
             return pluginFiles[0];
         }
     }
