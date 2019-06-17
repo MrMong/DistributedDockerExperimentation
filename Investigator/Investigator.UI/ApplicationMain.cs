@@ -48,7 +48,7 @@ namespace DistributedExperimentation.Investigator.UI
                         {
                             return ((String.Compare(x.Key,"-v") == 0) || 
                                     (String.Compare(x.Key,"--docker-api-version") == 0));
-                        }).FirstOrDefault().Value);                    
+                        }).FirstOrDefault().Value);              
                     Application.Investigator investigator = Application.Investigator.create(dockerHost,
                                                                                         apiVersion);                    
                     Task task = investigator.startExperimentation(fileContent, 

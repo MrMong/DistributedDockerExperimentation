@@ -52,6 +52,11 @@ namespace DistributedExperimentation.Experimenter.Application
             executorPlugin.execute(eSeries);
         }
 
+        public static String getCurrentJsonSchema()
+        {
+            return ExperimentSeriesJsonParser.getCurrentJsonSchema();
+        }
+
         private ExperimentSeriesJsonBuilder createExperimentSeriesJsonBuilder() 
         {
             JsonDotNetTextWriter jwriter = JsonDotNetTextWriter.create(new StringBuilder());
