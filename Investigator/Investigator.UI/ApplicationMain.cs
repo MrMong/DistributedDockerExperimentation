@@ -15,7 +15,7 @@ namespace DistributedExperimentation.Investigator.UI
         {
             try {
                 // File.WriteAllText("exp1.json", createTestCase());
-                // "-f", "exp1.json", 
+                // "-e", "exp1.json", 
                 // "-d", "192.168.178.211:5000/experimenter-simple-adder-db-app-alpine3.7-noentry:1.0",
                 // "-h", "unix:///var/run/docker.sock",
                 // "-p", "/workdir/Experimenter/Experimenter.UI",
@@ -24,10 +24,10 @@ namespace DistributedExperimentation.Investigator.UI
                 if (parsedArgs.ContainsKey("json-schema")) {
                     Console.WriteLine(Application.Investigator.getCurrentJsonSchema());
                 } else {
-                    String fileContent = readFile(parsedArgs.Where(x => 
+                    String fileContent = parseJsonContent(parsedArgs.Where(x => 
                         {
-                            return ((String.Compare(x.Key,"-f") == 0) || 
-                                    (String.Compare(x.Key,"--experiment-file") == 0));
+                            return ((String.Compare(x.Key,"-e") == 0) || 
+                                    (String.Compare(x.Key,"--experiment-data") == 0));
                         }).First().Value);
                     String imageName = parseDockerImageName(parsedArgs.Where(x => 
                         {
@@ -57,11 +57,11 @@ namespace DistributedExperimentation.Investigator.UI
                     task.Wait();
                 }
             } catch (FormatException) {
-                Console.WriteLine("The content of the given file contains " +
+                Console.WriteLine("The given content of experiment data contains " +
                                   "syntactically invalid JSON-Code.");
             } catch (ApplicationException) {
-                Console.WriteLine("The content of the given file " +
-                                  "violates the intern JSON schema.");                         
+                Console.WriteLine("The given content of experiment data " +
+                                  "violates the intern JSON schema.");                     
             } catch (Exception e) {
                 Console.WriteLine(e.Message);
             }
@@ -90,8 +90,8 @@ namespace DistributedExperimentation.Investigator.UI
                                     .GroupBy(x => x.i / 2)
                                     .ToDictionary(g => g.First().s, g => g.Last().s);
                     if ((parsedArgs.Count == 4) || (parsedArgs.Count == 5)) {
-                        if ((!parsedArgs.ContainsKey("-f")) &&
-                            (!parsedArgs.ContainsKey("--experiment-file")))
+                        if ((!parsedArgs.ContainsKey("-e")) &&
+                            (!parsedArgs.ContainsKey("--experiment-data")))
                             throw new Exception();
                         if ((!parsedArgs.ContainsKey("-d")) &&
                             (!parsedArgs.ContainsKey("--docker-image")))
@@ -119,6 +119,17 @@ namespace DistributedExperimentation.Investigator.UI
                                                    createHelpText(), ex);
             }
         }
+
+        private static String parseJsonContent(String data)
+        {
+            String jsonContent = null;
+            if (data[0] == '@') {
+                jsonContent = readFile(data.TrimStart('@'));
+            } else {
+                jsonContent = data;
+            }
+            return jsonContent;
+        }          
 
         private static String readFile(String filepath) 
         {
@@ -259,8 +270,9 @@ namespace DistributedExperimentation.Investigator.UI
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("Usage:\t Investigator.UI");
-            sb.Append("\n  -f, --experiment-file\t\t");
-            sb.Append("path to file, which contains the data of an series of experiments");
+            sb.Append("\n  -e, --experiment-data\t\t");
+            sb.Append("json data of an series of experiments or path to json file, which contains the data\n");
+            sb.Append("\t\t\t\tfile path must be escaped with an @ sign\n"); 
             sb.Append("\n  -d, --docker-image\t\t");
             sb.Append("name of docker image, which be used as object of the investigation\n");
             sb.Append("\t\t\t\tThe image name is structered as follows:\n");
@@ -273,7 +285,7 @@ namespace DistributedExperimentation.Investigator.UI
             sb.Append("host of docker, which will be connected");       
             sb.Append("\n  -p, --execution-path\t\t");
             sb.Append("path, which will be used to execute the experimenter program inside the given docker image");                 
-            sb.Append("\n  [-v, --docker-api-version]\t");
+            sb.Append("\n [-v, --docker-api-version]\t");
             sb.Append("remote api version, which will be used\n \n");
             sb.Append("Usage:\t Investigator.UI json-schema\n");
             sb.Append("\t Return the currently used json schema for the semantical validation.");            

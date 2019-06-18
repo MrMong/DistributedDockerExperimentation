@@ -12,8 +12,9 @@ namespace DistributedExperimentation.Experimenter.UI
         private static String defaultPluginFilePrefix = "ExecutorPlugin";
         private static String defaultPluginDirPath = Directory.GetCurrentDirectory();
 
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
+            int exitCode = 0;
             try {
                 Dictionary<string, string> parsedArgs = parseArguments(args);
                 if (parsedArgs.ContainsKey("json-schema")) {
@@ -35,7 +36,9 @@ namespace DistributedExperimentation.Experimenter.UI
                 }
             } catch (Exception e) {
                 Console.WriteLine(e.Message);
+                exitCode = -1;
             }
+            return exitCode;
         }
 
         private static Dictionary<string, string> parseArguments(string[] args)
