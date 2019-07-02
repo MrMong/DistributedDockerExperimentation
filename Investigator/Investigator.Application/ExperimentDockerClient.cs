@@ -72,7 +72,7 @@ namespace DistributedExperimentation.Investigator.Application
         {
             SwarmInspectResponse response = await this.client.Swarm.InspectSwarmAsync();
             return response.ToString();
-        }
+        }  
 
         public async Task<IList<KeyValuePair<string, string>>> getServiceTaskStatesAsync() 
         {
@@ -118,7 +118,8 @@ namespace DistributedExperimentation.Investigator.Application
             parameters.Service.TaskTemplate.ContainerSpec.Image = dockerImage;
             IList<String> containerCommand = new List<String>();
             containerCommand.Add(experimenterPath);
-            containerCommand.Add("--experiment-data '" + jsonExperiment + "'");
+            containerCommand.Add("--experiment-data");
+            containerCommand.Add(jsonExperiment);
             parameters.Service.TaskTemplate.ContainerSpec.Command = containerCommand;
             
             ServiceCreateResponse response = await this.client.Swarm.CreateServiceAsync(parameters);
