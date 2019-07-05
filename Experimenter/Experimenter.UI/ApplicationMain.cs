@@ -7,7 +7,7 @@ using DistributedExperimentation.Experimenter.Application;
 
 namespace DistributedExperimentation.Experimenter.UI
 {
-    class ApplicationMain
+    public class ApplicationMain
     {
         private static String defaultPluginFilePrefix = "ExecutorPlugin";
         private static String defaultPluginDirPath = Directory.GetCurrentDirectory();

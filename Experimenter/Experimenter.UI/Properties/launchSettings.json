@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Experimenter.UI": {
+      "commandName": "Project",
+      "commandLineArgs": "-e @C:\\Users\\mtko\\source\\publish\\Executor\\exp.json -p C:\\Users\\mtko\\source\\publish\\Executor\\ExecutorPluginNG-ERP-4.0.dll"
+    }
+  }
+}

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
+using Microsoft.Extensions.DependencyModel;
 using DistributedExperimentation.DataModel;
 using DistributedExperimentation.Experimenter.ExecutorPlugin;
+using System.Linq;
 
 namespace DistributedExperimentation.Experimenter.Application
 {
@@ -44,7 +46,9 @@ namespace DistributedExperimentation.Experimenter.Application
         private IExecutorPlugin loadPlugin(String pluginFilePathArg) 
         {
             IExecutorPlugin loadedPlugin = null;
-            Assembly assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(pluginFilePathArg); 
+            //Assembly assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(pluginFilePathArg); 
+            AssemblyLoader asl = new AssemblyLoader();
+            Assembly assembly = asl.LoadFromAssemblyPath(pluginFilePathArg);
             if(assembly != null) { 
                 Type pluginType = typeof(IExecutorPlugin); 
                 Type[] types = assembly.GetTypes(); 
@@ -58,6 +62,22 @@ namespace DistributedExperimentation.Experimenter.Application
                 } 
             }
             return loadedPlugin;
+        }
+
+        public class AssemblyLoader : AssemblyLoadContext
+        {
+            protected override Assembly Load(AssemblyName assemblyName)
+            {
+                var dependencies = DependencyContext.Default;
+                var res = dependencies.CompileLibraries.Where(d => d.Name.Contains(assemblyName.Name)).ToList();
+                Assembly assembly = null;
+                if (res.Count > 0)
+                {
+                    assembly = Assembly.Load(new AssemblyName(res.First().Name));
+                }
+                
+                return assembly;
+            }
         }
     }
 }
