@@ -19,8 +19,8 @@ namespace ExecutorPluginNGERP40
             var experiment = experimentSeries.getExperiments()[0];
             var properties = new Dictionary<string, object>();
             var argString = "";
-            // string relativePathToProgram = "./../Master40.Simulation/Master40.Simulation";
-            string relativePathToProgram = @".\..\Master40.Simulation\Master40.Simulation";
+            string relativePathToProgram = @"./../NgERP40/Master40.Simulation";
+            //string relativePathToProgram = @".\..\Master40.Simulation\Master40.Simulation";
             string workDir = Directory.GetCurrentDirectory();
             SolveCollection((IParameterList)experiment.getParameters(), properties);
 
@@ -30,7 +30,7 @@ namespace ExecutorPluginNGERP40
                 Console.WriteLine(@"{0}: {1}", item.Key, item.Value.ToString());
             }
 
-            // initialize process and execute them
+            // initialize process and execute them40
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.WorkingDirectory = workDir;
             startInfo.FileName = relativePathToProgram;
@@ -38,18 +38,38 @@ namespace ExecutorPluginNGERP40
             startInfo.CreateNoWindow = true;
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardOutput = true;
-            using (Process process = Process.Start(startInfo))
-            {
-                using (StreamReader reader = process.StandardOutput)
-                {
-                    Console.WriteLine("Simulation SSOP:");
-                    Console.WriteLine("-------------------------------------------------");
-                    Console.WriteLine(reader.ReadToEnd());
-                    Console.WriteLine("-------------------------------------------------");
-                }
-                process.WaitForExit();
-            }
 
+
+            Process process = new Process();
+            process.OutputDataReceived += RedirectOutputToConsole("Standard: ");
+
+            process.ErrorDataReceived += RedirectOutputToConsole("Error: ");
+
+            process.StartInfo = startInfo;
+            Console.WriteLine("Simulation SSOP:");
+            Console.WriteLine("-------------------------------------------------");
+            process.Start();
+            process.BeginOutputReadLine();
+            process.WaitForExit();
+            process.Close();
+            Console.WriteLine("-------------------------------------------------");
+        }
+
+        /// <summary>
+        /// redirect Processoutput to local Console during the Execution.
+        /// </summary>
+        /// <param name="outputprefix">is applied in front of the Written Line.
+        /// i.e. > "Error: 37a - command not found!" </param>
+        /// <returns></returns>
+        private static DataReceivedEventHandler RedirectOutputToConsole(string outputprefix)
+        {
+            return new DataReceivedEventHandler((sender, e) =>
+            {
+                if (!String.IsNullOrEmpty(e.Data))
+                {
+                    Console.WriteLine(outputprefix +  e.Data);
+                }
+            });
         }
 
         private void SolveCollection(IParameterList parameterList, Dictionary<string, object> targetList)
