@@ -109,7 +109,7 @@ namespace DistributedExperimentation.Investigator.Application
             parameters.Service.Mode.Replicated = new ReplicatedService();
             parameters.Service.Mode.Replicated.Replicas = 1;
             NetworkAttachmentConfig networkAttach1 = new NetworkAttachmentConfig();
-            networkAttach1.Target = "host";
+            networkAttach1.Target = "bridge";
             IList<NetworkAttachmentConfig> networks = new List<NetworkAttachmentConfig>();
             networks.Add(networkAttach1);
             parameters.Service.TaskTemplate.Networks = networks;
