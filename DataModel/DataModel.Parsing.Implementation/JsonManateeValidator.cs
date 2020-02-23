@@ -119,7 +119,7 @@ namespace DistributedExperimentation.DataModel.Parsing.Implementation
                 mappedVersion = SchemaVersion.Draft06;
             if (version == JsonSchemaVersion.Draft07)
                 mappedVersion = SchemaVersion.Draft07;
-            if (version == JsonSchemaVersion.Draft08)
+            if (version == JsonSchemaVersion.Draft2019_09)
                 mappedVersion = SchemaVersion.Draft08;
             return mappedVersion;
         }
