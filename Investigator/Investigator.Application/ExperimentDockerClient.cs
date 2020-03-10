@@ -116,6 +116,7 @@ namespace DistributedExperimentation.Investigator.Application
 
             parameters.Service.TaskTemplate.ContainerSpec = new ContainerSpec();
             parameters.Service.TaskTemplate.ContainerSpec.Image = dockerImage;
+            parameters.Service.TaskTemplate.ContainerSpec.TTY = true;
             IList<String> containerCommand = new List<String>();
             containerCommand.Add(experimenterPath);
             containerCommand.Add("--experiment-data");

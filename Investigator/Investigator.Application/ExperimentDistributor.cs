@@ -83,7 +83,7 @@ namespace DistributedExperimentation.Investigator.Application
                 //                                            eSeries.getExperimentSoftware(), 
                 //                                            experiment, dockerImage, executionPath));
                 // }  
-                await startRemovePolling(tasks.Select(x => x.Value.Result).ToList());
+                //await startRemovePolling(tasks.Select(x => x.Value.Result).ToList());
                 Console.WriteLine("Investigator: Experiment tasks of the series of experiment " +
                                   "with id " + eSeries.getId() + " were finished");              
             } else {
