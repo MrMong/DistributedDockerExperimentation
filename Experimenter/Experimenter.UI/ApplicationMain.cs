@@ -7,6 +7,7 @@ using DistributedExperimentation.Experimenter.Application;
 
 namespace DistributedExperimentation.Experimenter.UI
 {
+    // this class represent the presentation layer of experimenter
     class ApplicationMain
     {
         private static String defaultPluginFilePrefix = "ExecutorPlugin";
@@ -41,6 +42,7 @@ namespace DistributedExperimentation.Experimenter.UI
             return exitCode;
         }
 
+        // parse and checks given arguments of ui interface
         private static Dictionary<string, string> parseArguments(string[] args)
         {
             try {

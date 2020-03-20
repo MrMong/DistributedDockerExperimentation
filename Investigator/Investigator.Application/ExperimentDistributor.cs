@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using DistributedExperimentation.DataModel;
 using DistributedExperimentation.DataModel.Parsing;
-using DistributedExperimentation.DataModel.Parsing.Implementation;
 
 namespace DistributedExperimentation.Investigator.Application
 {
+    // this class distribute experiment definitions in an network
     public class ExperimentDistributor
     {
         private ExperimentDockerClient client;
@@ -26,12 +26,14 @@ namespace DistributedExperimentation.Investigator.Application
             }
         }
 
+        // factory method for experiment distributor class
         public static ExperimentDistributor create(ExperimentDockerClient client,
                                           IExperimentSeriesBuilder builder) 
         {
             return new ExperimentDistributor(client, builder);
         }
 
+        // starts an task per given experiment, which create an experiment service in each case
         public async Task distributeExperimentSeries(IExperimentSeries eSeries, 
                                                      String dockerImage, 
                                                      String executionPath) 
@@ -42,10 +44,12 @@ namespace DistributedExperimentation.Investigator.Application
                 IList<IExperiment> experiments = eSeries.getExperiments().ToList();
                 Console.WriteLine("Investigator: Start distributing experiment tasks of " +
                                   "series of experiment with id " + eSeries.getId());
-                //while(experiments.Count > 0)
-                //{
+                    // create task per experiment
                     foreach(IExperiment experiment in experiments)
                     {
+                        // wait 10 seconds until to the next task creation
+                        Task.Delay(10000).Wait();
+                        // create task
                         tasks.Add(new KeyValuePair<string, Task<KeyValuePair<string, string>>>(
                                                 eSeries.getId() + ":::" + experiment.getId(),
                                                 this.distributeExperimentAsync(eSeries.getId(), 
@@ -54,36 +58,17 @@ namespace DistributedExperimentation.Investigator.Application
                                                 eSeries.getExperimentSoftware(), 
                                                 experiment, dockerImage, executionPath)));
                     }
-                    //Task.Delay(3000).Wait();
+                    // check if an created task faulted
                     tasks.Where(x => x.Value.IsFaulted).ToList().ForEach(x => 
                     {
                         String error = "Investigator: Task\n\t        " + x.Key + 
                                        "\n\t      is faulted because:\n" +
                                        x.Value.Exception.Message;
                         Console.WriteLine(error);
-                    });
-                    // IList<String> faultedTasks = tasks.Where(x => x.Value.IsFaulted)
-                    //                                   .Select(x => x.Key).ToList();                                                   
-                    // experiments = experiments.Where(x => 
-                    // {
-                    //     bool isSelected = false;
-                    //     String identifier = eSeries.getId() + ":::" + x.getId();
-                    //     foreach(String brokenIdentifier in faultedTasks) {
-                    //         if (String.Compare(identifier, brokenIdentifier) == 0)
-                    //             isSelected = true;
-                    //     }
-                    //     return isSelected;
-                    // }).ToList();
-                //}
-                // foreach(IExperiment experiment in eSeries.getExperiments())
-                // {
-                //     tasks.Add(this.distributeExperimentAsync(eSeries.getId(), 
-                //                                            eSeries.getName(), 
-                //                                            eSeries.getDescription(),
-                //                                            eSeries.getExperimentSoftware(), 
-                //                                            experiment, dockerImage, executionPath));
-                // }  
-                //await startRemovePolling(tasks.Select(x => x.Value.Result).ToList());
+                    }); 
+                // watch for state of experiment services:
+                // remove, if faulted or finished successful - and display a message
+                await startRemovePolling(tasks.Select(x => x.Value.Result).ToList());
                 Console.WriteLine("Investigator: Experiment tasks of the series of experiment " +
                                   "with id " + eSeries.getId() + " were finished");              
             } else {
@@ -92,10 +77,12 @@ namespace DistributedExperimentation.Investigator.Application
             }
         }
 
+        // starts an task, which poll and remove terminated experiment services
         private async Task startRemovePolling(IList<KeyValuePair<String, String>> currentExperimentServiceIds)
         {
             IList<KeyValuePair<String, String>> copy = currentExperimentServiceIds.ToList();
             IList<String> sIds = copy.Select(x => x.Key).ToList();
+            // poll tasks until no tasks are left
             while (sIds.Count > 0) {
                 IList<KeyValuePair<string, string>> taskStates = client.getServiceTaskStatesAsync().Result;
                 foreach(KeyValuePair<string, string> t in taskStates) {
@@ -106,6 +93,7 @@ namespace DistributedExperimentation.Investigator.Application
                                      (String.Compare(t.Value, "rejected", true) == 0) ||
                                      (String.Compare(t.Value, "orphaned", true) == 0) ||
                                      (String.Compare(t.Value, "remove", true) == 0));
+                    // check if task has terminated state
                     if (isContained && isExpired) {
                         KeyValuePair<string, string> expTask = copy.Where(x => 
                                     String.Compare(x.Key, t.Key) == 0).First();
@@ -121,10 +109,12 @@ namespace DistributedExperimentation.Investigator.Application
                         sIds.Remove(t.Key);
                     }
                 }
-                Task.Delay(3000).Wait();
+                // wait 60 seconds for next check
+                Task.Delay(60000).Wait();
             }
         }
 
+        // starts an task, which created an experiment service
         private async Task<KeyValuePair<String, String>> distributeExperimentAsync(String seriesId, 
                                                                                  String seriesName, 
                                                                                  String seriesDescription, 
@@ -134,6 +124,7 @@ namespace DistributedExperimentation.Investigator.Application
                                                                                  String executionPath)
         {
             String path = executionPath;
+            // build name for experiment service
             builder.setId(seriesId);
             builder.setName(seriesName);
             builder.setDescription(seriesDescription);

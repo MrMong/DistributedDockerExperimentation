@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.IO;
 using Docker.DotNet;
 using Docker.DotNet.Models;
 
 namespace DistributedExperimentation.Investigator.Application
 {
+    // class, which adapts the docker api
     public class ExperimentDockerClient
     {
         private DockerClient client;
@@ -32,16 +32,19 @@ namespace DistributedExperimentation.Investigator.Application
             }            
         }
 
+        // factory method for experiment docker client class, with specific docker api version
         public static ExperimentDockerClient create(Uri host, System.Version version)
         {
             return new ExperimentDockerClient(host, version);
         }
 
+        // factory method experiment docker client class, without specific docker api version
         public static ExperimentDockerClient create(Uri host)
         {
             return new ExperimentDockerClient(host);
         }        
 
+        // get all containers of current node
         public async Task<IList<ContainerListResponse>> listAllContainersAsync(long limit) 
         {
             IList<ContainerListResponse> containers = await this.client.Containers.ListContainersAsync(
@@ -51,6 +54,7 @@ namespace DistributedExperimentation.Investigator.Application
             return containers;
         }
 
+        // create docker cluster (docker swarm)
         public async Task<String> createSwarmAsync(String advertiseAddr, String listenAddr)
         {
             SwarmInitParameters parameters = new SwarmInitParameters();
@@ -60,6 +64,7 @@ namespace DistributedExperimentation.Investigator.Application
             return await this.client.Swarm.InitSwarmAsync(parameters, cancellationToken);
         }
 
+        // current node leave an docker cluster (docker swarm)
         public async Task leaveSwarmAsync(bool isForced)
         {
             SwarmLeaveParameters parameters = new SwarmLeaveParameters();
@@ -68,12 +73,14 @@ namespace DistributedExperimentation.Investigator.Application
             await this.client.Swarm.LeaveSwarmAsync(parameters, cancellationToken);
         }
 
+        // get informations of current docker cluster (docker swarm)
         public async Task<String> inspectSwarmAsync()
         {
             SwarmInspectResponse response = await this.client.Swarm.InspectSwarmAsync();
             return response.ToString();
         }  
 
+        // get information of all docker service containers (container = task)
         public async Task<IList<KeyValuePair<string, string>>> getServiceTaskStatesAsync() 
         {
             IList<KeyValuePair<string, string>> resultTasks = new List<KeyValuePair<string, string>>();
@@ -84,6 +91,7 @@ namespace DistributedExperimentation.Investigator.Application
             return resultTasks;
         }
 
+        // update or rather change the status of an node in docker cluster (docker swarm)
         public async Task updateNodeAsync(String hostname, String role, String availability, 
                                           ulong version, KeyValuePair<String, String> label) 
         {
@@ -96,6 +104,7 @@ namespace DistributedExperimentation.Investigator.Application
             await this.client.Swarm.UpdateNodeAsync(hostname, version, parameters);
         }
 
+        // create a docker service in docker cluster (docker swarm)
         public async Task<String> createExperimentServiceAsync(String taskName, String dockerImage, 
                                                                String experimenterPath, String jsonExperiment)
         {
@@ -127,6 +136,7 @@ namespace DistributedExperimentation.Investigator.Application
             return response.ID;
         }
 
+        // remove an docker service in docker cluster (docker swarm)
         public async Task removeExperimentServiceAsync(String serviceId) 
         {
             await this.client.Swarm.RemoveServiceAsync(serviceId);

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -8,6 +7,7 @@ using DistributedExperimentation.Experimenter.ExecutorPlugin;
 
 namespace DistributedExperimentation.Experimenter.Application
 {
+    // this class is the proxy for an concrete plugin
     public class ExecutorPluginProxy : IExecutorPlugin
     {
         private String pluginFilePath;
@@ -18,6 +18,7 @@ namespace DistributedExperimentation.Experimenter.Application
                         (File.Exists(pluginFilePath)));
             if (isOk) {
                 this.pluginFilePath = pluginFilePath;
+                // (try) load plugin file
                 this.executorPlugin = executorPlugin = loadPlugin(pluginFilePath);
             } else {
                 throw new ArgumentException("The given arguments are not valid.\n" +
@@ -26,11 +27,13 @@ namespace DistributedExperimentation.Experimenter.Application
             }
         }
 
+        // factory method of executor plugin proxy class
         public static ExecutorPluginProxy create(String pluginFilePath)
         {
             return new ExecutorPluginProxy(pluginFilePath);
         }
 
+        // executes the loaded plugin
         public void execute(IExperimentSeries experimentSeries) 
         {
             this.executorPlugin.execute(experimentSeries);

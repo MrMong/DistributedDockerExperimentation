@@ -7,6 +7,7 @@ using DistributedExperimentation.DataModel.Parsing.Implementation;
 
 namespace DistributedExperimentation.Investigator.Application
 {
+    // this class is an facade for application layer of investigator
     public class Investigator
     {
         private ExperimentSeriesObjectBuilder obuilder;
@@ -33,11 +34,13 @@ namespace DistributedExperimentation.Investigator.Application
             }
         }
 
+        // factory method of investigator class
         public static Investigator create(Uri dockerHost, Version dockerRemoteApiVersion) 
         {
             return new Investigator(dockerHost, dockerRemoteApiVersion);
         }
 
+        // starts an task, which read, validate and execute experiment definitions
         public Task startExperimentation(String jsonExperimentSeries, 
                                          String dockerImage, 
                                          String executionPath) 
