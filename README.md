@@ -24,7 +24,7 @@ To encapsulate different and individual experiment software and there enviroment
 
 ### Setup
 
-1. Implement and provide an custom plugin for the subsystem Experimenter, which instructs the Experimenter how to interact with your experiment software.
+1. Implement and provide an custom plugin for the subsystem Experimenter, which instructs the Experimenter how to interact with your experiment software. See [here](https://github.com/MrMong/DistributedDockerExperimentation/wiki/Deploy-an-plugin-for-Experimenter-subsystem) for details.
 1. Create and provide an executable docker image, which contain all your experiment software and the subsystem Experimenter with your implemented plugin. This image represents your full experiment enviroments with all its dependencies and will be distributed and executed in the cluster.
 1. Take the subsystem Investigator to that docker station, which takes on the role of manager.
 
