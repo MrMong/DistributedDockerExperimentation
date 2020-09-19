@@ -66,9 +66,9 @@ Create an definition json file, which contains a set of computer based experimen
 ]
 }
 ```
-Initiate a execution of your defined experiments by pass
-\- the path of your definition file and
-\- a unique identifier of your docker image
+Initiate a execution of your defined experiments by pass\
+&nbsp;&nbsp;&nbsp;&nbsp;\- the path of your definition file and\
+&nbsp;&nbsp;&nbsp;&nbsp;\- a unique identifier of your docker image\
 the UI of Investigator subsystem.
 
 After successful initiation status information will be given in terminal during the execution of experiments tasks.
